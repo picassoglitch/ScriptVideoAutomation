@@ -1,0 +1,23 @@
+name: Generar Videos Diarios
+
+on:
+  schedule:
+    - cron: '0 10 * * *'  # Corre diario a las 10am UTC (ajusta a tu hora, ej: México ~4pm UTC para 10am CST)
+  workflow_dispatch:  # Para correr manual si quieres
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: pip install higgsfield-client gspread oauth2client google-drive-api  # Adapta paquetes
+      - name: Run script
+        env:
+          HIGGSFIELD_API_KEY: ${{ secrets.HIGGSFIELD_KEY }}  # Agrega tus secrets en repo Settings > Secrets
+          GOOGLE_CREDS: ${{ secrets.GOOGLE_JSON }}  # Sube tu JSON key como secret
+        run: python tu_script.py
