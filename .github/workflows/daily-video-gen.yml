@@ -18,7 +18,7 @@ jobs:
           
       - name: Install dependencies
         run: |
-          pip install higgsfield-client gspread google-api-python-client google-auth-oauthlib
+          pip install higgsfield-client requests gspread google-api-python-client google-auth-oauthlib
           
       - name: Run generation script
         env:
